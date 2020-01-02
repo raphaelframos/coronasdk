@@ -36,7 +36,17 @@ local function onTap( event)
 
 end
 
+function createObstacle()
 
+  obstacle1 = display.newRect( 50, step, step-20, 5 )
+  obstacle1:setFillColor( 0, 0, 1 )
+
+  obstacle2 = display.newRect( step + 50, step*2, step-20, 5 )
+  obstacle2:setFillColor( 0, 0, 1 )
+
+end
+
+createObstacle()
 
 rightControl:addEventListener("tap", onTap)
 leftControl:addEventListener("tap", onTap)
