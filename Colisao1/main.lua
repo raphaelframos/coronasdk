@@ -9,6 +9,7 @@ background:setFillColor( 1, 1, 1 )
 
 local player = display.newCircle( display.contentCenterX, 10, 15 )
 player:setFillColor( 0, 0, 0 )
+player.name = "player"
 
 local floor = display.newRect( display.contentCenterX, display.actualContentHeight-50, display.actualContentWidth, 10 )
 floor:setFillColor( 0, 1, 0 )
@@ -39,11 +40,23 @@ end
 function createObstacle()
 
   obstacle1 = display.newRect( 50, step, step-20, 5 )
+  obstacle1.name = "obstacle1"
   obstacle1:setFillColor( 0, 0, 1 )
 
   obstacle2 = display.newRect( step + 50, step*2, step-20, 5 )
   obstacle2:setFillColor( 0, 0, 1 )
+  obstacle2.name = "obstacle2"
 
+end
+
+local function onLocalCollision( self, event )
+
+    if ( event.phase == "began" ) then
+        print( self.name .. ": collision began with " .. event.other.name )
+
+    elseif ( event.phase == "ended" ) then
+        print( self.name .. ": collision ended with " .. event.other.name )
+    end
 end
 
 createObstacle()
@@ -53,3 +66,7 @@ leftControl:addEventListener("tap", onTap)
 
 physics.addBody( player, "dynamic" )
 physics.addBody( floor, "static" )
+physics.addBody( obstacle1, "static" )
+physics.addBody( obstacle2, "static" )
+obstacle2.collision = onLocalCollision
+obstacle2:addEventListener( "collision" )
