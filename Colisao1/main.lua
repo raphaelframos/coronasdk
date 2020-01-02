@@ -1,11 +1,17 @@
 local physics = require "physics"
 local step = display.actualContentWidth/3
-
+local actions = 3
 
 physics.start()
 physics.setGravity( 0, 0.5 )
+
+
+
 local background = display.newRect( display.contentCenterX, display.contentCenterY, display.actualContentWidth, display.actualContentHeight )
 background:setFillColor( 1, 1, 1 )
+
+textActions = display.newText( "Movimentos : " .. actions, 50, 0, native.systemFont, 12 )
+textActions:setFillColor( 0, 0, 0 )
 
 local player = display.newCircle( display.contentCenterX, 10, 15 )
 player:setFillColor( 0, 0, 0 )
@@ -29,11 +35,19 @@ rightControl:setFillColor( 0, 0, 0 )
 rightControl.name = "right"
 
 local function onTap( event)
-  if (event.target.name == "left") and ( player.x > step ) then
-    transition.to( player, {x = ( player.x - step ) })
-  elseif (event.target.name == "right" and player.x < (step * 2)) then
-      transition.to( player, {x = ( player.x + step ) })
+
+  if actions > 0 then
+    if (event.target.name == "left") and ( player.x > step ) then
+      transition.to( player, {x = ( player.x - step ) })
+    elseif (event.target.name == "right" and player.x < (step * 2)) then
+        transition.to( player, {x = ( player.x + step ) })
+    end
+
+    actions = (actions - 1)
+    textActions.text = "Movimentos: " .. actions
+
   end
+
 
 end
 
@@ -52,10 +66,10 @@ end
 local function onLocalCollision( self, event )
 
     if ( event.phase == "began" ) then
-        print( self.name .. ": collision began with " .. event.other.name )
-
-    elseif ( event.phase == "ended" ) then
-        print( self.name .. ": collision ended with " .. event.other.name )
+      if event.other.name == "player" then
+        textEnd = display.newText( "Você perdeu!", display.contentCenterX, display.contentCenterY, native.systemFont, 32 )
+        textEnd:setFillColor( 0, 0, 0 )
+      end
     end
 end
 
