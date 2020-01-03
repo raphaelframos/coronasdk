@@ -7,8 +7,9 @@ physics.setGravity( 0, 0.5 )
 
 
 
-local background = display.newRect( display.contentCenterX, display.contentCenterY, display.actualContentWidth, display.actualContentHeight )
-background:setFillColor( 1, 1, 1 )
+local background = display.newImageRect( "bg.png", display.actualContentWidth, display.actualContentHeight )
+background.x = display.contentCenterX
+background.y = display.contentCenterY
 
 textActions = display.newText( "Movimentos : " .. actions, 50, 0, native.systemFont, 12 )
 textActions:setFillColor( 0, 0, 0 )
@@ -16,8 +17,8 @@ textActions:setFillColor( 0, 0, 0 )
 local player = display.newImage( "player.png" )
 player.x = display.contentCenterX
 player.y = 10
-player.width = 60
-player.height = 70
+player.width = 40
+player.height = 40
 player.name = "player"
 
 local floor = display.newImageRect( "floor.png", display.actualContentWidth+80, 80 )
@@ -86,7 +87,7 @@ createObstacle()
 rightControl:addEventListener("tap", onTap)
 leftControl:addEventListener("tap", onTap)
 
-physics.addBody( player, "dynamic" )
+physics.addBody( player, "dynamic", { density=1.0, friction=0.3, bounce=0.2 } )
 physics.addBody( floor, "static" )
 physics.addBody( obstacle1, "static" )
 physics.addBody( obstacle2, "static" )
