@@ -91,5 +91,7 @@ physics.addBody( player, "dynamic", { density=1.0, friction=0.3, bounce=0.2 } )
 physics.addBody( floor, "static" )
 physics.addBody( obstacle1, "static" )
 physics.addBody( obstacle2, "static" )
+obstacle1.collision = onLocalCollision
+obstacle1:addEventListener( "collision" )
 obstacle2.collision = onLocalCollision
 obstacle2:addEventListener( "collision" )
