@@ -25,13 +25,13 @@ floor.x = display.contentCenterX
 floor.y = display.actualContentHeight-30
 
 
-local leftControl = display.newImageRect( "leftButton.png" , 20, 50 )
-leftControl.x = 20
+local leftControl = display.newImageRect( "leftButton.png" , 50, 50 )
+leftControl.x = 30
 leftControl.y = display.actualContentHeight-100
 leftControl.name = "left"
 
-local rightControl = display.newImageRect( "rightButton.png", 20, 50 )
-rightControl.x = display.actualContentWidth-20
+local rightControl = display.newImageRect( "rightButton.png", 50, 50 )
+rightControl.x = display.actualContentWidth-30
 rightControl.y = display.actualContentHeight-100
 rightControl.name = "right"
 
