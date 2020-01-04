@@ -1,40 +1,45 @@
 local physics = require "physics"
 local step = display.actualContentWidth/3
 local actions = 3
-
+display.setStatusBar( display.HiddenStatusBar )
 physics.start()
-physics.setGravity( 0, 0.5 )
+physics.setGravity( 0, 0.9 )
+
+local backGroup = display.newGroup()
+local mainGroup = display.newGroup()
+local uiGroup = display.newGroup()
 
 
-
-local background = display.newImageRect( "Img/bg.png", display.actualContentWidth, display.actualContentHeight )
+local background = display.newImageRect( backGroup, "Img/bg.png", display.actualContentWidth, display.actualContentHeight )
 background.x = display.contentCenterX
 background.y = display.contentCenterY
 
-textActions = display.newText( "Movimentos : " .. actions, 50, 0, native.systemFont, 12 )
+textActions = display.newText( uiGroup, "Movimentos : " .. actions, 50, -10, native.systemFont, 14 )
 textActions:setFillColor( 0, 0, 0 )
 
-local player = display.newImage( "Img/player.png" )
+local player = display.newImage( mainGroup, "Img/player.png" )
 player.x = display.contentCenterX
 player.y = 10
 player.width = 40
 player.height = 40
 player.name = "player"
 
-local floor = display.newImageRect( "Img/floor.png", display.actualContentWidth+80, 80 )
+local floor = display.newImageRect( backGroup, "Img/floor.png", display.actualContentWidth+80, 80 )
 floor.x = display.contentCenterX
 floor.y = display.actualContentHeight-30
 
 
-local leftControl = display.newImageRect( "Img/leftButton.png" , 50, 50 )
+local leftControl = display.newImageRect( uiGroup, "Img/leftButton.png" , 50, 50 )
 leftControl.x = 30
 leftControl.y = display.actualContentHeight-100
 leftControl.name = "left"
+leftControl.alpha = 0.7
 
-local rightControl = display.newImageRect( "Img/rightButton.png", 50, 50 )
+local rightControl = display.newImageRect( uiGroup, "Img/rightButton.png", 50, 50 )
 rightControl.x = display.actualContentWidth-30
 rightControl.y = display.actualContentHeight-100
 rightControl.name = "right"
+rightControl.alpha = 0.7
 
 local function updateText()
   textActions.text = "Movimentos: " .. actions
@@ -50,7 +55,6 @@ local function onTap( event)
     end
     actions = (actions - 1)
     updateText()
-
   end
 end
 
